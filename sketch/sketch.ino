@@ -1,22 +1,32 @@
 #include <LiquidCrystal.h>
+#include <DynamixelSerial.h>
 
 LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
+int value;
 
 void setup() {
   // initialize digital pin 13 as an output.
-  pinMode(13, OUTPUT);
+  pinMode(13, OUTPUT); //aux led
   lcd.begin(16, 2);
-  lcd.print("hello, world!");
+  Dynamixel.begin(1000000,2);  // Inicialize the servo at 1Mbps and Pin Control 2
 }
 
 // the loop function runs over and over again forever
 void loop() {
-  digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);              // wait for a second
+  lcd.print("Servo 1:");
   lcd.setCursor(0, 1);
-  lcd.print(millis()/1000);
-  digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);              // wait for a second
-  lcd.setCursor(0, 1);
-  lcd.print(millis()/1000);
+  lcd.print("Servo 2:");
+  
+  lcd.setCursor(11, 0);
+  value = random(0,4096);
+  Dynamixel.move(13,value);  // Move the Servo radomly from 200 to 800
+  lcd.print(value);
+  
+  lcd.setCursor(11, 1);
+  value = random(0,4096);
+  Dynamixel.move(14,value);  // Move the Servo radomly from 200 to 800
+  lcd.print(value);
+  
+  delay(1000);
+  lcd.clear();
 }
