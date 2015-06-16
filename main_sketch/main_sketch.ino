@@ -44,7 +44,7 @@ void loop() {
 }
 
 byte ping(byte address){
-// step 1: instruct sensor to read echoes
+  // step 1: instruct sensor to read echoes
   Wire.beginTransmission(address); // transmit to device #112 (0x70)
   // the address specified in the datasheet is 224 (0xE0)
   // but i2c adressing uses the high 7 bits so it's 112
